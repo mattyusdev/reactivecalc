@@ -11,16 +11,18 @@ import {
 import { buttonsData } from "./data/buttonsData";
 import { CalcButton } from "./styles/buttonElements";
 import { useSelector, useDispatch } from "react-redux";
-import { addNumber, reset } from "./redux/calcActions";
+import { addNumber, reset, chooseOperator } from "./redux/calcActions";
 
 function App() {
-  const { number } = useSelector((state) => state);
+  const { number, expression } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   const clickHandler = (data) => {
     switch (data.role) {
       case "number":
         return dispatch(addNumber(data.value));
+      case "operator":
+        return dispatch(chooseOperator(data.value));
       case "reset":
         return dispatch(reset());
       default:
@@ -32,7 +34,7 @@ function App() {
     <Background>
       <CalcFrame>
         <CalcHeader>
-          <CalcExpression></CalcExpression>
+          <CalcExpression>{expression}</CalcExpression>
           <CalcResult>{number}</CalcResult>
         </CalcHeader>
         <CalcButtonsFrame>

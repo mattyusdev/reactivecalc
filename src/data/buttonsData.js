@@ -10,6 +10,7 @@ export const buttonsData = [
   {
     value: "%",
     bold: true,
+    role: "operator",
     backgroundColor: colors.secondary,
   },
   {
@@ -20,6 +21,7 @@ export const buttonsData = [
   {
     value: "÷",
     bold: true,
+    role: "operator",
     backgroundColor: colors.tertiary,
   },
   {
@@ -37,6 +39,7 @@ export const buttonsData = [
   {
     value: "x",
     bold: true,
+    role: "operator",
     backgroundColor: colors.tertiary,
   },
   {
@@ -53,6 +56,7 @@ export const buttonsData = [
   },
   {
     value: "-",
+    role: "operator",
     bold: true,
     backgroundColor: colors.tertiary,
   },
@@ -70,6 +74,7 @@ export const buttonsData = [
   },
   {
     value: "+",
+    role: "operator",
     bold: true,
     backgroundColor: colors.tertiary,
   },

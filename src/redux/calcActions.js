@@ -1,4 +1,4 @@
-import { NUMBER, RESET } from "./calcTypes";
+import { NUMBER, RESET, OPERATOR } from "./calcTypes";
 
 export const addNumber = (number) => {
   return {
@@ -10,5 +10,12 @@ export const addNumber = (number) => {
 export const reset = () => {
   return {
     type: RESET,
+  };
+};
+
+export const chooseOperator = (operator) => {
+  return {
+    type: OPERATOR,
+    payload: operator,
   };
 };

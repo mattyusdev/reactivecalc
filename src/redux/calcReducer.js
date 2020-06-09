@@ -1,4 +1,4 @@
-import { NUMBER, RESET } from "./calcTypes";
+import { NUMBER, RESET, OPERATOR } from "./calcTypes";
 
 const initialState = {
   expression: "",
@@ -15,6 +15,11 @@ export const calcReducer = (state = initialState, action) => {
           state.number !== 0
             ? state.number + "" + action.payload
             : action.payload,
+      };
+    case OPERATOR:
+      return {
+        ...state,
+        expression: `${state.number} ${action.payload}`,
       };
     case RESET:
       return {
