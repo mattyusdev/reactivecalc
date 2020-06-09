@@ -10,14 +10,30 @@ import {
 } from "./styles/elements";
 import { buttonsData } from "./data/buttonsData";
 import { CalcButton } from "./styles/buttonElements";
+import { useSelector, useDispatch } from "react-redux";
+import { addNumber, reset } from "./redux/calcActions";
 
 function App() {
+  const { number } = useSelector((state) => state);
+  const dispatch = useDispatch();
+
+  const clickHandler = (data) => {
+    switch (data.role) {
+      case "number":
+        return dispatch(addNumber(data.value));
+      case "reset":
+        return dispatch(reset());
+      default:
+        break;
+    }
+  };
+
   return (
     <Background>
       <CalcFrame>
         <CalcHeader>
-          <CalcExpression>15 x 4 333333333333333333333333</CalcExpression>
-          <CalcResult>102</CalcResult>
+          <CalcExpression></CalcExpression>
+          <CalcResult>{number}</CalcResult>
         </CalcHeader>
         <CalcButtonsFrame>
           {buttonsData.map((b) => (
@@ -25,8 +41,9 @@ function App() {
               backgroundColor={b.backgroundColor}
               bold={b.bold}
               span={b.span}
+              onClick={() => clickHandler(b)}
             >
-              {b.text}
+              {b.value}
             </CalcButton>
           ))}
         </CalcButtonsFrame>

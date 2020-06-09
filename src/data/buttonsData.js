@@ -2,76 +2,87 @@ import { colors } from "../styles/palette";
 
 export const buttonsData = [
   {
-    text: "c",
+    value: "c",
+    bold: true,
+    role: "reset",
+    backgroundColor: colors.secondary,
+  },
+  {
+    value: "%",
     bold: true,
     backgroundColor: colors.secondary,
   },
   {
-    text: "%",
+    value: "del",
     bold: true,
     backgroundColor: colors.secondary,
   },
   {
-    text: "del",
-    bold: true,
-    backgroundColor: colors.secondary,
-  },
-  {
-    text: "÷",
+    value: "÷",
     bold: true,
     backgroundColor: colors.tertiary,
   },
   {
-    text: "7",
+    value: "7",
+    role: "number",
   },
   {
-    text: "8",
+    value: "8",
+    role: "number",
   },
   {
-    text: "9",
+    value: "9",
+    role: "number",
   },
   {
-    text: "x",
+    value: "x",
     bold: true,
     backgroundColor: colors.tertiary,
   },
   {
-    text: "4",
+    value: "4",
+    role: "number",
   },
   {
-    text: "5",
+    value: "5",
+    role: "number",
   },
   {
-    text: "6",
+    value: "6",
+    role: "number",
   },
   {
-    text: "-",
+    value: "-",
     bold: true,
     backgroundColor: colors.tertiary,
   },
   {
-    text: "1",
+    value: "1",
+    role: "number",
   },
   {
-    text: "2",
+    value: "2",
+    role: "number",
   },
   {
-    text: "3",
+    value: "3",
+    role: "number",
   },
   {
-    text: "+",
+    value: "+",
     bold: true,
     backgroundColor: colors.tertiary,
   },
   {
-    text: "0",
+    value: "0",
+    role: "number",
   },
   {
-    text: ".",
+    value: ".",
     bold: true,
   },
   {
-    text: "=",
+    value: "=",
     bold: true,
     backgroundColor: colors.primary,
     span: "span 2",
