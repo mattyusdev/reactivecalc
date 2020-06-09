@@ -1,0 +1,32 @@
+@font-face {
+  font-family: "Exo";
+  src: url("/fonts/Exo-ExtraLight.TTF");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Exo";
+  src: url("/fonts/Exo-Regular.TTF");
+  font-weight: bold;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Exo";
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
