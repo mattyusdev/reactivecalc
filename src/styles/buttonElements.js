@@ -66,5 +66,10 @@ export const CalcButton = styled(ButtonWithProps)`
           background: ${props.theme[props.backgroundColor]};
         }
       `}
+
+      @media ${device.mobileL} {
+    font-size: 1.8rem;
+
+      }
   }
 `;
