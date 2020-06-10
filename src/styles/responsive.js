@@ -11,6 +11,10 @@ export const device = {
 
 export const GlobalStyle = createGlobalStyle`
     html {
+      @media ${device.laptop} {
+            font-size: 13px;
+        }
+      
         @media ${device.mobileL} {
             font-size: 10px;
         }

@@ -1,13 +1,23 @@
 @font-face {
   font-family: "Exo";
-  src: url("/fonts/Exo-ExtraLight.TTF");
+  src: url("/fonts/Exo-ExtraLight.eot");
+  src: url("/fonts/Exo-ExtraLight.eot?#iefix") format("embedded-opentype"),
+    url("/fonts/Exo-ExtraLight.otf") format("opentype"), url("/fonts/Exo-ExtraLight.svg") format("svg"),
+    url("/fonts/Exo-ExtraLight.ttf") format("truetype"), url("/fonts/Exo-ExtraLight.woff") format("woff"),
+    url("/fonts/Exo-ExtraLight.woff2") format("woff2");
   font-weight: 200;
+  font-style: normal;
 }
 
 @font-face {
   font-family: "Exo";
-  src: url("/fonts/Exo-Regular.TTF");
+  src: url("/fonts/Exo-Regular.eot");
+  src: url("/fonts/Exo-Regular.eot?#iefix") format("embedded-opentype"),
+    url("/fonts/Exo-Regular.otf") format("opentype"), url("/fonts/Exo-Regular.svg") format("svg"),
+    url("/fonts/Exo-Regular.ttf") format("truetype"), url("/fonts/Exo-Regular.woff") format("woff"),
+    url("/fonts/Exo-Regular.woff2") format("woff2");
   font-weight: 400;
+  font-style: normal;
 }
 
 body {
