@@ -22,7 +22,7 @@ import {
 } from "./redux/calcActions";
 import CountUp from "react-countup";
 import { FaGithub } from "react-icons/fa";
-import { MdBrightnessLow, MdBrightness4 } from "react-icons/md";
+import { MdBrightness4 } from "react-icons/md";
 import { TiAdjustBrightness } from "react-icons/ti";
 import { ThemeProvider } from "styled-components";
 import { light, dark } from "./styles/theme";
@@ -58,6 +58,7 @@ function App() {
         if (number !== "-") {
           return dispatch(result());
         }
+        break;
       case "reset":
         return dispatch(reset());
       default:
