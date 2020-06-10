@@ -89,7 +89,7 @@ function App() {
           <Bar>
             <NavButton
               component="a"
-              href="https://github.com/mattyusdev"
+              href="https://github.com/mattyusdev/reactivecalc"
               target="_blank"
             >
               <FaGithub />
@@ -125,6 +125,7 @@ function App() {
                 bold={b.bold}
                 span={b.span}
                 onClick={() => clickHandler(b)}
+                key={b.value}
               >
                 {b.value}
               </CalcButton>
