@@ -16,10 +16,11 @@ export const buttonsData = [
   {
     value: "del",
     bold: true,
+    role: "delete",
     backgroundColor: colors.secondary,
   },
   {
-    value: "÷",
+    value: "/",
     bold: true,
     role: "operator",
     backgroundColor: colors.tertiary,
@@ -37,7 +38,7 @@ export const buttonsData = [
     role: "number",
   },
   {
-    value: "x",
+    value: "*",
     bold: true,
     role: "operator",
     backgroundColor: colors.tertiary,
@@ -84,12 +85,14 @@ export const buttonsData = [
   },
   {
     value: ".",
+    role: "decimal",
     bold: true,
   },
   {
     value: "=",
     bold: true,
     backgroundColor: colors.primary,
+    role: "result",
     span: "span 2",
   },
 ];

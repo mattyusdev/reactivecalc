@@ -3,7 +3,7 @@ import "./App.css";
 import {
   Background,
   CalcFrame,
-  CalcHeader,
+  CalcScreen,
   CalcExpression,
   CalcResult,
   CalcButtonsFrame,
@@ -11,18 +11,45 @@ import {
 import { buttonsData } from "./data/buttonsData";
 import { CalcButton } from "./styles/buttonElements";
 import { useSelector, useDispatch } from "react-redux";
-import { addNumber, reset, chooseOperator } from "./redux/calcActions";
+import {
+  addNumber,
+  reset,
+  chooseOperator,
+  result,
+  addDecimal,
+  deleteEntry,
+} from "./redux/calcActions";
+import CountUp from "react-countup";
 
 function App() {
-  const { number, expression } = useSelector((state) => state);
+  const { number, expression, isResult } = useSelector((state) => state);
   const dispatch = useDispatch();
 
+  //CLICK
+
   const clickHandler = (data) => {
+    if (isResult) {
+      dispatch(reset());
+    }
+
     switch (data.role) {
       case "number":
         return dispatch(addNumber(data.value));
       case "operator":
-        return dispatch(chooseOperator(data.value));
+        //for negative number in the beginning
+        if (data.value === "-" && number === 0) {
+          return dispatch(addNumber("-"));
+        } else {
+          return dispatch(chooseOperator(data.value));
+        }
+      case "decimal":
+        return dispatch(addDecimal());
+      case "delete":
+        return dispatch(deleteEntry());
+      case "result":
+        if (number != "-") {
+          return dispatch(result());
+        }
       case "reset":
         return dispatch(reset());
       default:
@@ -30,13 +57,41 @@ function App() {
     }
   };
 
+  //DECIMALS
+
+  let longerNumber = false;
+
+  const getDecimal = (num) => {
+    if (Math.floor(num) === num) return 0;
+    let decimals = num.toString().split(".")[1].length;
+    if (decimals < 6) {
+      longerNumber = false;
+      return decimals;
+    } else {
+      longerNumber = true;
+      return 5;
+    }
+  };
+
   return (
     <Background>
       <CalcFrame>
-        <CalcHeader>
+        <CalcScreen>
           <CalcExpression>{expression}</CalcExpression>
-          <CalcResult>{number}</CalcResult>
-        </CalcHeader>
+          <CalcResult>
+            {!isResult ? (
+              number
+            ) : (
+              <CountUp
+                end={number}
+                duration={0.5}
+                decimals={getDecimal(number)}
+                separator={","}
+                suffix={longerNumber ? "..." : null}
+              />
+            )}
+          </CalcResult>
+        </CalcScreen>
         <CalcButtonsFrame>
           {buttonsData.map((b) => (
             <CalcButton

@@ -1,9 +1,11 @@
-import { NUMBER, RESET, OPERATOR } from "./calcTypes";
+import { NUMBER, RESET, OPERATOR, RESULT, DECIMAL, DELETE } from "./calcTypes";
 
 const initialState = {
   expression: "",
-  result: 0,
   number: 0,
+  isResult: false,
+  decimal: false,
+  operator: false,
 };
 
 export const calcReducer = (state = initialState, action) => {
@@ -13,13 +15,46 @@ export const calcReducer = (state = initialState, action) => {
         ...state,
         number:
           state.number !== 0
-            ? state.number + "" + action.payload
+            ? state.operator
+              ? action.payload
+              : state.number + "" + action.payload
             : action.payload,
+        operator: false,
+      };
+    case DECIMAL:
+      return {
+        ...state,
+        number: !state.decimal ? `${state.number}.` : state.number,
+        decimal: true,
+      };
+    case DELETE:
+      let sliced = state.number.slice(0, -1);
+      let lastSliced = state.number.substr(state.number.length - 1);
+      return {
+        ...state,
+        number:
+          !state.operator && state.number != 0
+            ? sliced.length
+              ? sliced
+              : 0
+            : state.number,
+        decimal: lastSliced === "." ? false : state.decimal,
       };
     case OPERATOR:
       return {
         ...state,
-        expression: `${state.number} ${action.payload}`,
+        expression: state.operator
+          ? `${state.expression.slice(0, -2)} ${action.payload}`
+          : `${state.expression} ${state.number} ${action.payload}`,
+        operator: true,
+        decimal: false,
+      };
+    case RESULT:
+      return {
+        ...state,
+        expression: `${state.expression} ${state.number} =`,
+        number: eval(`${state.expression} ${state.number}`),
+        isResult: true,
       };
     case RESET:
       return {

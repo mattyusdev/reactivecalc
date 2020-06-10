@@ -1,4 +1,4 @@
-import { NUMBER, RESET, OPERATOR } from "./calcTypes";
+import { NUMBER, RESET, OPERATOR, RESULT, DECIMAL, DELETE } from "./calcTypes";
 
 export const addNumber = (number) => {
   return {
@@ -7,9 +7,15 @@ export const addNumber = (number) => {
   };
 };
 
-export const reset = () => {
+export const addDecimal = () => {
   return {
-    type: RESET,
+    type: DECIMAL,
+  };
+};
+
+export const deleteEntry = () => {
+  return {
+    type: DELETE,
   };
 };
 
@@ -17,5 +23,17 @@ export const chooseOperator = (operator) => {
   return {
     type: OPERATOR,
     payload: operator,
+  };
+};
+
+export const result = () => {
+  return {
+    type: RESULT,
+  };
+};
+
+export const reset = () => {
+  return {
+    type: RESET,
   };
 };

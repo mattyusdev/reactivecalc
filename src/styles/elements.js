@@ -15,21 +15,21 @@ export const Background = styled.div`
 `;
 
 export const CalcFrame = styled.div`
-  height: 75vh;
-  width: 50vh;
+  min-height: 45rem;
+  width: 30rem;
   min-width: 200px;
   background: #fff;
   box-shadow: 1px 3px 25px 0px rgba(0, 0, 0, 0.3);
 `;
 
-export const CalcHeader = styled.header`
-  height: 25%;
+export const CalcScreen = styled.header`
+  min-height: 13rem;
   background: ${colors.background};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 15px 20px 12px 20px;
-  overflow: auto;
+  word-wrap: break-word;
 `;
 
 export const CalcExpression = styled.h3`
@@ -49,7 +49,7 @@ export const CalcResult = styled.h1`
 `;
 
 export const CalcButtonsFrame = styled.div`
-  height: 75%;
+  height: 32rem;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
 `;
