@@ -1,43 +1,82 @@
-import styled from "styled-components";
-import { colors } from "./palette";
+import styled, { css } from "styled-components";
+import { device } from "./responsive";
 
 export const Background = styled.div`
-  background: linear-gradient(
-    90deg,
-    ${colors.gradientOne} 0%,
-    ${colors.gradientTwo} 100%
-  );
+  ${(props) =>
+    props.theme &&
+    css`
+      background: linear-gradient(
+        90deg,
+        ${props.theme.gradientOne} 0%,
+        ${props.theme.gradientTwo} 100%
+      );
+    `}
   min-height: 100vh;
   max-width: 100vw;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 `;
 
 export const CalcFrame = styled.div`
   min-height: 45rem;
   width: 30rem;
-  min-width: 200px;
   background: #fff;
   box-shadow: 1px 3px 25px 0px rgba(0, 0, 0, 0.3);
+
+  @media ${device.mobileL} {
+    min-height: 100vh;
+    width: 100vw;
+  }
+`;
+
+export const Bar = styled.nav`
+  ${(props) =>
+    props.theme &&
+    css`
+      background: ${props.theme.background};
+    `}
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media ${device.mobileL} {
+    height: 5vh;
+  }
 `;
 
 export const CalcScreen = styled.header`
-  min-height: 13rem;
-  background: ${colors.background};
+  ${(props) =>
+    props.theme &&
+    css`
+      background: ${props.theme.background};
+    `}
+
+  min-height: 11rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 15px 20px 12px 20px;
   word-wrap: break-word;
+  padding: 15px 20px 12px 20px;
+
+  @media ${device.mobileL} {
+    min-height: 20vh;
+  }
 `;
 
 export const CalcExpression = styled.h3`
+  ${(props) =>
+    props.theme &&
+    css`
+      color: ${props.theme.primary};
+    `}
+
   word-wrap: break-word;
   text-align: right;
   font-size: 1.5rem;
-
-  color: ${colors.primary};
 `;
 
 export const CalcResult = styled.h1`
@@ -52,4 +91,8 @@ export const CalcButtonsFrame = styled.div`
   height: 32rem;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+
+  @media ${device.mobileL} {
+    height: 75vh;
+  }
 `;

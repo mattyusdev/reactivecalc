@@ -1,8 +1,9 @@
 import { NUMBER, RESET, OPERATOR, RESULT, DECIMAL, DELETE } from "./calcTypes";
+import { evaluate } from "mathjs";
 
 const initialState = {
   expression: "",
-  number: 0,
+  number: "0",
   isResult: false,
   decimal: false,
   operator: false,
@@ -14,7 +15,7 @@ export const calcReducer = (state = initialState, action) => {
       return {
         ...state,
         number:
-          state.number !== 0
+          state.number !== "0"
             ? state.operator
               ? action.payload
               : state.number + "" + action.payload
@@ -33,10 +34,10 @@ export const calcReducer = (state = initialState, action) => {
       return {
         ...state,
         number:
-          !state.operator && state.number != 0
+          !state.operator && state.number !== "0"
             ? sliced.length
               ? sliced
-              : 0
+              : "0"
             : state.number,
         decimal: lastSliced === "." ? false : state.decimal,
       };
@@ -53,7 +54,7 @@ export const calcReducer = (state = initialState, action) => {
       return {
         ...state,
         expression: `${state.expression} ${state.number} =`,
-        number: eval(`${state.expression} ${state.number}`),
+        number: evaluate(`${state.expression} ${state.number}`),
         isResult: true,
       };
     case RESET:
