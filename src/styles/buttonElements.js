@@ -46,7 +46,7 @@ export const CalcButton = styled(ButtonWithProps)`
     ${(props) =>
       props.bold &&
       css`
-        font-weight: bold;
+        font-weight: 400;
       `};
 
     ${(props) =>

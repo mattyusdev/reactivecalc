@@ -1,13 +1,13 @@
 @font-face {
-  font-family: "Exo";
+  font-family: "Exo Font";
   src: url("/fonts/Exo-ExtraLight.TTF");
-  font-weight: normal;
+  font-weight: 200;
 }
 
 @font-face {
-  font-family: "Exo";
+  font-family: "Exo Font";
   src: url("/fonts/Exo-Regular.TTF");
-  font-weight: bold;
+  font-weight: 400;
 }
 
 body {
@@ -22,7 +22,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Exo";
+  font-family: "Exo Font";
 }
 
 code {

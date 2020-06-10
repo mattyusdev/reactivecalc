@@ -82,7 +82,7 @@ export const CalcExpression = styled.h3`
 export const CalcResult = styled.h1`
   font-size: 5rem;
   text-align: right;
-  font-weight: normal;
+  font-weight: 200;
 
   color: #fff;
 `;
