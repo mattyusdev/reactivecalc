@@ -19,6 +19,7 @@ import {
   result,
   addDecimal,
   deleteEntry,
+  continueAfterResult,
 } from "./redux/calcActions";
 import CountUp from "react-countup";
 import { FaGithub } from "react-icons/fa";
@@ -28,16 +29,26 @@ import { ThemeProvider } from "styled-components";
 import { light, dark } from "./styles/theme";
 import { GlobalStyle } from "./styles/responsive";
 
+import NumberFormat from "react-number-format";
+import { getDecimals } from "./functions/getDecimals";
+
 function App() {
   const [theme, setTheme] = useState("dark");
-  const { number, expression, isResult } = useSelector((state) => state);
+  const { number, expression, isResult, operator } = useSelector(
+    (state) => state
+  );
   const dispatch = useDispatch();
+  const decimals = getDecimals(number);
 
   //CLICK
 
   const clickHandler = (data) => {
-    if (isResult) {
-      dispatch(reset());
+    if (operator && data.role === "decimal") {
+      return null;
+    }
+
+    if (isResult && data.role !== "reset") {
+      dispatch(continueAfterResult());
     }
 
     switch (data.role) {
@@ -66,22 +77,6 @@ function App() {
     }
   };
 
-  //DECIMALS
-
-  let longerNumber = false;
-
-  const getDecimal = (num) => {
-    if (Math.floor(num) === num) return 0;
-    let decimals = num.toString().split(".")[1].length;
-    if (decimals < 6) {
-      longerNumber = false;
-      return decimals;
-    } else {
-      longerNumber = true;
-      return 5;
-    }
-  };
-
   return (
     <ThemeProvider theme={theme === "light" ? light : dark}>
       <GlobalStyle />
@@ -106,14 +101,21 @@ function App() {
             <CalcExpression>{expression}</CalcExpression>
             <CalcResult>
               {!isResult ? (
-                number
+                <NumberFormat
+                  value={number}
+                  displayType={"text"}
+                  thousandSeparator={true}
+                  suffix={
+                    number.toString().slice(number.length - 1) === "." && "."
+                  }
+                />
               ) : (
                 <CountUp
                   end={number}
                   duration={0.5}
-                  decimals={getDecimal(number)}
+                  decimals={decimals < 5 ? decimals : 5}
                   separator={","}
-                  suffix={longerNumber ? "..." : null}
+                  suffix={decimals > 5 ? "..." : null}
                 />
               )}
             </CalcResult>

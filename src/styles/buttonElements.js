@@ -10,9 +10,14 @@ const IconButtonWithProps = React.forwardRef((props, ref) => (
 
 export const NavButton = styled(IconButtonWithProps)`
   && {
-    color: #fff;
     font-size: 1.7rem;
     padding: 1rem;
+
+    ${(props) =>
+      props.theme &&
+      css`
+        color: ${props.theme.textTwo};
+      `}
 
     @media ${device.mobileL} {
       font-size: 2.3rem;

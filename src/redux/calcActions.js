@@ -1,4 +1,12 @@
-import { NUMBER, RESET, OPERATOR, RESULT, DECIMAL, DELETE } from "./calcTypes";
+import {
+  NUMBER,
+  RESET,
+  OPERATOR,
+  RESULT,
+  DECIMAL,
+  DELETE,
+  CONTINUE_AFTER_RESULT,
+} from "./calcTypes";
 
 export const addNumber = (number) => {
   return {
@@ -35,5 +43,11 @@ export const result = () => {
 export const reset = () => {
   return {
     type: RESET,
+  };
+};
+
+export const continueAfterResult = () => {
+  return {
+    type: CONTINUE_AFTER_RESULT,
   };
 };

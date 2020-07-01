@@ -1,4 +1,12 @@
-import { NUMBER, RESET, OPERATOR, RESULT, DECIMAL, DELETE } from "./calcTypes";
+import {
+  NUMBER,
+  RESET,
+  OPERATOR,
+  RESULT,
+  DECIMAL,
+  DELETE,
+  CONTINUE_AFTER_RESULT,
+} from "./calcTypes";
 import { evaluate } from "mathjs";
 
 const initialState = {
@@ -51,11 +59,20 @@ export const calcReducer = (state = initialState, action) => {
         decimal: false,
       };
     case RESULT:
+      const result = evaluate(`${state.expression} ${state.number}`);
       return {
         ...state,
         expression: `${state.expression} ${state.number} =`,
-        number: evaluate(`${state.expression} ${state.number}`),
+        number: result,
         isResult: true,
+        decimal: result.toString().split(".")[1] ? true : false,
+      };
+
+    case CONTINUE_AFTER_RESULT:
+      return {
+        ...state,
+        expression: "",
+        isResult: false,
       };
     case RESET:
       return {

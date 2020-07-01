@@ -36,7 +36,7 @@ export const Bar = styled.nav`
   ${(props) =>
     props.theme &&
     css`
-      background: ${props.theme.background};
+      background: ${props.theme.quaternary};
     `}
 
   display: flex;
@@ -52,7 +52,7 @@ export const CalcScreen = styled.header`
   ${(props) =>
     props.theme &&
     css`
-      background: ${props.theme.background};
+      background: ${props.theme.screen};
     `}
 
   min-height: 11rem;
@@ -84,7 +84,11 @@ export const CalcResult = styled.h1`
   text-align: right;
   font-weight: 200;
 
-  color: #fff;
+  ${(props) =>
+    props.theme &&
+    css`
+      color: ${props.theme.screenText};
+    `}
 `;
 
 export const CalcButtonsFrame = styled.div`

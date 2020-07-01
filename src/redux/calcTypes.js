@@ -4,3 +4,4 @@ export const DELETE = "DELETE";
 export const RESET = "RESET";
 export const OPERATOR = "OPERATOR";
 export const RESULT = "RESULT";
+export const CONTINUE_AFTER_RESULT = "CONTINUE_AFTER_RESULT";
