@@ -15,7 +15,7 @@ export const buttonsDispatchLogic = (data) => {
     const { currentNumber, isOperatorSelected, isResult } = getState();
 
     //continue after pressing result
-    if (isResult && data.role !== "reset") {
+    if (isResult && data.role === "operator") {
       dispatch(continueAfterResult());
     }
 
