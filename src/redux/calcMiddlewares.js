@@ -19,6 +19,11 @@ export const buttonsDispatchLogic = (data) => {
       dispatch(continueAfterResult());
     }
 
+    //reset after result and choosing number
+    if (isResult && data.role !== "operator") {
+      dispatch(reset());
+    }
+
     switch (data.role) {
       case "number":
         dispatch(addNumber(data.value));
