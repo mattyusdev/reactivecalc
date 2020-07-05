@@ -5,11 +5,20 @@ export const Background = styled.div`
   ${(props) =>
     props.theme &&
     css`
+      background-color: ${props.gradientOne};
       background: linear-gradient(
         90deg,
         ${props.theme.gradientOne} 0%,
         ${props.theme.gradientTwo} 100%
       );
+    `}
+  ${(props) =>
+    props.theme.name === "mattyus" &&
+    css`
+      @media ${device.minMobileL} {
+        background: url("/mattyusbackground_noeffects.svg") no-repeat center
+          fixed;
+      }
     `}
   min-height: 100vh;
   max-width: 100vw;

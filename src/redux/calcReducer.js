@@ -1,83 +1,103 @@
 import {
-  NUMBER,
-  RESET,
-  OPERATOR,
-  RESULT,
-  DECIMAL,
-  DELETE,
+  SET_NUMBER,
+  RESET_CALCULATOR,
+  SET_OPERATOR,
+  GET_RESULT,
+  ADD_DECIMAL,
+  DELETE_ENTRY,
   CONTINUE_AFTER_RESULT,
+  SET_THEME,
 } from "./calcTypes";
 import { evaluate } from "mathjs";
 
 const initialState = {
-  expression: "",
-  number: "0",
+  currentExpression: "",
+  currentNumber: "0",
   isResult: false,
-  decimal: false,
-  operator: false,
+  isDecimal: false,
+  isOperatorSelected: false,
+  theme: "dark",
 };
 
 export const calcReducer = (state = initialState, action) => {
   switch (action.type) {
-    case NUMBER:
+    case SET_NUMBER:
       return {
         ...state,
-        number:
-          state.number !== "0"
-            ? state.operator
+        currentNumber:
+          state.currentNumber !== "0"
+            ? state.isOperatorSelected
               ? action.payload
-              : state.number + "" + action.payload
+              : state.currentNumber + "" + action.payload
             : action.payload,
-        operator: false,
+        isOperatorSelected: false,
       };
-    case DECIMAL:
+
+    case ADD_DECIMAL:
       return {
         ...state,
-        number: !state.decimal ? `${state.number}.` : state.number,
-        decimal: true,
+        currentNumber: !state.isDecimal
+          ? `${state.currentNumber}.`
+          : state.currentNumber,
+        isDecimal: true,
       };
-    case DELETE:
-      let sliced = state.number.slice(0, -1);
-      let lastSliced = state.number.substr(state.number.length - 1);
+
+    case DELETE_ENTRY:
+      const stringNumber = state.currentNumber.toString();
+      const sliced = stringNumber.slice(0, -1);
+      const lastSliced = stringNumber.substr(state.currentNumber.length - 1);
       return {
         ...state,
-        number:
-          !state.operator && state.number !== "0"
+        currentNumber:
+          !state.isOperatorSelected && state.currentNumber !== "0"
             ? sliced.length
               ? sliced
               : "0"
-            : state.number,
-        decimal: lastSliced === "." ? false : state.decimal,
+            : state.currentNumber,
+        isDecimal: lastSliced === "." ? false : state.isDecimal,
       };
-    case OPERATOR:
+
+    case SET_OPERATOR:
       return {
         ...state,
-        expression: state.operator
-          ? `${state.expression.slice(0, -2)} ${action.payload}`
-          : `${state.expression} ${state.number} ${action.payload}`,
-        operator: true,
-        decimal: false,
+        currentExpression: state.isOperatorSelected
+          ? `${state.currentExpression.slice(0, -2)} ${action.payload}`
+          : `${state.currentExpression} ${state.currentNumber} ${action.payload}`,
+        isOperatorSelected: true,
+        isDecimal: false,
       };
-    case RESULT:
-      const result = evaluate(`${state.expression} ${state.number}`);
+
+    case GET_RESULT:
+      const result = evaluate(
+        `${state.currentExpression} ${state.currentNumber}`
+      );
       return {
         ...state,
-        expression: `${state.expression} ${state.number} =`,
-        number: result,
+        currentExpression: `${state.currentExpression} ${state.currentNumber} =`,
+        currentNumber: result,
         isResult: true,
-        decimal: result.toString().split(".")[1] ? true : false,
+        isDecimal: result.toString().split(".")[1] ? true : false,
       };
 
     case CONTINUE_AFTER_RESULT:
       return {
         ...state,
-        expression: "",
+        currentExpression: "",
         isResult: false,
       };
-    case RESET:
+
+    case RESET_CALCULATOR:
       return {
         ...initialState,
+        theme: state.theme,
       };
+
+    case SET_THEME:
+      return {
+        ...state,
+        theme: action.payload,
+      };
+
     default:
       return state;
   }

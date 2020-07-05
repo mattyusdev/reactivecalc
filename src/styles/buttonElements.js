@@ -19,8 +19,26 @@ export const NavButton = styled(IconButtonWithProps)`
         color: ${props.theme.textTwo};
       `}
 
+      ${(props) =>
+        props.theme.name === "mattyus" &&
+        css`
+          svg {
+            width: 1.7rem;
+            height: 1.7rem;
+          }
+        `}
+
     @media ${device.mobileL} {
       font-size: 2.3rem;
+
+      ${(props) =>
+        props.theme.name === "mattyus" &&
+        css`
+          svg {
+            width: 2.3rem;
+            height: 2.3rem;
+          }
+        `}
     }
   }
 `;

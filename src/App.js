@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
 import {
   Background,
@@ -12,73 +12,32 @@ import {
 import { buttonsData } from "./data/buttonsData";
 import { CalcButton, NavButton } from "./styles/buttonElements";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  addNumber,
-  reset,
-  chooseOperator,
-  result,
-  addDecimal,
-  deleteEntry,
-  continueAfterResult,
-} from "./redux/calcActions";
 import CountUp from "react-countup";
 import { FaGithub } from "react-icons/fa";
-import { MdBrightness4 } from "react-icons/md";
-import { TiAdjustBrightness } from "react-icons/ti";
 import { ThemeProvider } from "styled-components";
-import { light, dark } from "./styles/theme";
+import { calcThemes } from "./styles/theme";
 import { GlobalStyle } from "./styles/responsive";
 
 import NumberFormat from "react-number-format";
 import { getDecimals } from "./functions/getDecimals";
+import { buttonsDispatchLogic, setThemeLogic } from "./redux/calcMiddlewares";
+import { themeFinder } from "./functions/themeFinder";
 
 function App() {
-  const [theme, setTheme] = useState("dark");
-  const { number, expression, isResult, operator } = useSelector(
+  const { currentNumber, currentExpression, isResult, theme } = useSelector(
     (state) => state
   );
   const dispatch = useDispatch();
-  const decimals = getDecimals(number);
 
-  //CLICK
+  const decimals = getDecimals(currentNumber);
+  const currentTheme = themeFinder(calcThemes, theme);
 
   const clickHandler = (data) => {
-    if (operator && data.role === "decimal") {
-      return null;
-    }
-
-    if (isResult && data.role !== "reset") {
-      dispatch(continueAfterResult());
-    }
-
-    switch (data.role) {
-      case "number":
-        return dispatch(addNumber(data.value));
-      case "operator":
-        //for negative number in the beginning
-        if (data.value === "-" && number === "0") {
-          return dispatch(addNumber("-"));
-        } else {
-          return dispatch(chooseOperator(data.value));
-        }
-      case "decimal":
-        return dispatch(addDecimal());
-      case "delete":
-        return dispatch(deleteEntry());
-      case "result":
-        if (number !== "-") {
-          return dispatch(result());
-        }
-        break;
-      case "reset":
-        return dispatch(reset());
-      default:
-        break;
-    }
+    dispatch(buttonsDispatchLogic(data));
   };
 
   return (
-    <ThemeProvider theme={theme === "light" ? light : dark}>
+    <ThemeProvider theme={currentTheme}>
       <GlobalStyle />
       <Background>
         <CalcFrame>
@@ -91,27 +50,30 @@ function App() {
               <FaGithub />
             </NavButton>
             <NavButton
-              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+              onClick={() => {
+                dispatch(setThemeLogic());
+              }}
             >
-              {theme === "dark" ? <MdBrightness4 /> : <TiAdjustBrightness />}
+              <currentTheme.Icon />
             </NavButton>
           </Bar>
 
           <CalcScreen>
-            <CalcExpression>{expression}</CalcExpression>
+            <CalcExpression>{currentExpression}</CalcExpression>
             <CalcResult>
               {!isResult ? (
                 <NumberFormat
-                  value={number}
+                  value={currentNumber}
                   displayType={"text"}
                   thousandSeparator={true}
                   suffix={
-                    number.toString().slice(number.length - 1) === "." && "."
+                    currentNumber.toString().slice(currentNumber.length - 1) ===
+                      "." && "."
                   }
                 />
               ) : (
                 <CountUp
-                  end={number}
+                  end={currentNumber}
                   duration={0.5}
                   decimals={decimals < 5 ? decimals : 5}
                   separator={","}
