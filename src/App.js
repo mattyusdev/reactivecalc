@@ -36,6 +36,8 @@ function App() {
     dispatch(buttonsDispatchLogic(data));
   };
 
+  console.log(currentNumber);
+
   return (
     <ThemeProvider theme={currentTheme}>
       <GlobalStyle />

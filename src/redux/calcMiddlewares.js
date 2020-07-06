@@ -33,12 +33,16 @@ export const buttonsDispatchLogic = (data) => {
         if (data.value === "-" && currentNumber === "0") {
           dispatch(addNumber("-"));
         } else {
-          dispatch(chooseOperator(data.value));
+          if (currentNumber !== "-") {
+            dispatch(chooseOperator(data.value));
+          }
         }
         break;
       case "decimal":
-        //prevent decimal when choosing operator
-        if (!isOperatorSelected) {
+        //add decimal without pressing 0
+        if (isOperatorSelected || currentNumber === "-") {
+          dispatch(addNumber("0."));
+        } else {
           dispatch(addDecimal());
         }
         break;

@@ -25,12 +25,14 @@ export const calcReducer = (state = initialState, action) => {
       return {
         ...state,
         currentNumber:
-          state.currentNumber !== "0"
+          state.currentNumber !== "0" && state.currentNumber !== "-"
             ? state.isOperatorSelected
               ? action.payload
               : state.currentNumber + "" + action.payload
-            : action.payload,
-        isOperatorSelected: false,
+            : state.currentNumber !== "-"
+            ? action.payload
+            : state.currentNumber + "" + action.payload,
+        isOperatorSelected: action.payload === "-",
       };
 
     case ADD_DECIMAL:
